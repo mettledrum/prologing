@@ -1,0 +1,2 @@
+# prologing
+attempting prolog examples

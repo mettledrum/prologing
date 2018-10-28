@@ -16,5 +16,5 @@ my_kth([_|Tail], Ans, K) :- my_kth(Tail, Ans, K).
 
 % 1.05 reverse
 my_rev([], []).
-my_rev(List, List) :- my_len(List, 1).
-my_rev([Head|Tail], Reverse) :- my_rev(Tail, [Reverse|Head]).
+my_rev([X], [X]).
+% ???

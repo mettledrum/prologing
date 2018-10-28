@@ -18,3 +18,7 @@ my_kth([_|Tail], Ans, K) :- my_kth(Tail, Ans, K).
 my_rev([], []).
 my_rev([X], [X]).
 % ???
+
+% 1.14 double elements of a list
+my_double([], []).
+my_double([H|T], [H,H|X]) :- my_double(T, X).

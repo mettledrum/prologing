@@ -1,4 +1,4 @@
-% 1.04 length
+% 1.04 # of elements of a list
 my_len([], 0).
 my_len([_|Tail], Answer) :- my_len(Tail, Tally), Answer is Tally + 1.
 
@@ -14,11 +14,10 @@ my_pen([_|Tail], Ans) :- my_pen(Tail, Ans).
 my_kth([Ans|Tail], Ans, K) :- my_len(Tail, K).
 my_kth([_|Tail], Ans, K) :- my_kth(Tail, Ans, K).
 
-% 1.05 reverse
-my_rev([], []).
-my_rev([X], [X]).
-% ???
+% append
+my_append([], Same, Same).
+my_append([H|T], Same, [H|Appended]) :- my_append(T, Same, Appended).
 
-% 1.14 double elements of a list
+% 1.14 double elements of a list (doesn't work with dupes)
 my_double([], []).
 my_double([H|T], [H,H|X]) :- my_double(T, X).

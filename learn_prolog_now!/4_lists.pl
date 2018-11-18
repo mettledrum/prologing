@@ -4,10 +4,10 @@
 %%% Exercises %%%
 
 % 4.3) get 2nd element of list
-get2nd([_,X|_], X).
+get2nd([_,X|_],X).
 
 % 4.4) check to see lists match, except for switched 1st & 2nd elements.
-swap12([X,Y|T], [Y,X|T]).
+swap12([X,Y|T],[Y,X|T]).
 
 % 4.5) translate
 tran(eins,one).

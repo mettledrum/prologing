@@ -75,4 +75,32 @@ memberOneLine(L,X) :- app(_,[X|_],L).
 
 % 2) write set/2 using member/2
 
-% 3) write flatten without using append/3
+% pluck H off of L1 until L1 and L2 are []
+% match L3 to L2 (both will be [])
+% build L3 up; only put H in L3 if:
+% - it's not a member of L3 already
+% - it's the only occurrence in L1
+
+% try 1)
+setAcc1([H|T],L2,[H|L3]) :- setAcc1(T,L2,L3), not(isMember(L3,H)), !. % red cut to prevent finding sub lists
+setAcc1([_|T],L2,L3) :- setAcc1(T,L2,L3).
+setAcc1([],L,L).
+set1(InL,OutL) :- setAcc1(InL,[],OutL).
+% oops; not quite right; seems to build from right of list:
+% ?- set1([2,2,foo,1,foo,[],[]],U).
+% U = [2, 1, foo, []].
+
+% try 2)
+setAcc2([H|T],L2,[H|L3]) :- setAcc2(T,L2,L3), not(isMember(L3,H)).
+setAcc2([_|T],L2,L3) :- setAcc2(T,L2,L3), !.
+setAcc2([],L,L).
+set2(InL,OutL) :- setAcc2(InL,[],OutL).
+% oops; returns the correct answer twice:
+% ?- set2([2,2,foo,1,foo,[],[]],U).
+% U = [2, foo, 1, []] ;
+% U = [2, foo, 1, []].
+% ...and other examples don't read left to right correctly:
+% ?- set2([2,a,a,2,foo,1,foo,[],a,[],a],U).
+% U = [2, foo, 1, a, []].
+
+% 3) write flatten/2 without using append/3

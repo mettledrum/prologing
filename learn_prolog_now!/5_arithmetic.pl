@@ -4,6 +4,7 @@
 %   without additional unification that needs to build back from the stack.
 % - Vars to right of arithmetic must be instantiated already... this limits
 %   the inputs you can plug into the funcs.
+% - Order of the accumulators using arithmetic matters.
 
 
 %%% Exercises %%%
@@ -37,8 +38,6 @@ scalarMult(M,[Hi|Ti],[Ho|To]) :- scalarMult(M,Ti,To), Ho is M*Hi.
 scalarMult(_,[],[]).
 
 % 2) dot/3
-% sumacc([H|T],A,S) :- A is A+H, sumacc(T,A,S).
-% sumacc([],S,S).
-% sumem(L,S) :- sumacc(L,0,S).
-% dotacc([H1|T1],[H2|T2],[Acc|Ta]) :- dotacc(T1,T2,Ta), Acc is (H1*H2)+ .
-% dotacc([],[],Mult,Mult). 
+dotacc([H1|T1],[H2|T2],A,Dot) :- A2 is (H1*H2)+A, dotacc(T1,T2,A2,Dot).
+dotacc([],[],Dot,Dot). % return accumulated answer
+dot(V1,V2,Dot) :- dotacc(V1,V2,0,Dot).
